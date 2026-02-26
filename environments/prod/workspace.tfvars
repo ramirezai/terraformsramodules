@@ -5,7 +5,6 @@
 # -----------------------------------------------------------------------------
 # Platform State Configuration
 # -----------------------------------------------------------------------------
-platform_state_bucket = "joelststerraformstates3"
 environment          = "prod"
 
 # -----------------------------------------------------------------------------
@@ -31,3 +30,22 @@ compliance_standards = ["Standard_A", "Standard_B"]
 # -----------------------------------------------------------------------------
 databricks_gov_shard = null
 cmk_admin_arn       = null
+
+
+# -----------------------------------------------------------------------------
+# External Locations (optional)
+# -----------------------------------------------------------------------------
+external_locations = {
+  "existing_data" = {
+    create_bucket  = false
+    bucket_name    = ""
+    read_only      = true
+    create_catalog = false
+  }
+  "new_catalog" = {
+    create_bucket  = true
+    bucket_name    = ""
+    create_catalog = true
+    catalog_name   = "ext_catalog"
+  }
+}

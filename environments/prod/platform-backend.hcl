@@ -1,3 +1,3 @@
-bucket  = "joelststerraformstate"
+bucket  = ""
 key     = "platform/prod/terraform.tfstate"
 region  = "us-east-1"

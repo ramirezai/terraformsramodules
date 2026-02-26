@@ -1,3 +1,3 @@
-bucket  = "joelststerraformstates3"
+bucket  = ""
 key     = "workspace/dev/terraform.tfstate"
 region  = "us-east-1"

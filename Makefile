@@ -3,7 +3,7 @@
 
 ENV ?= dev
 
-.PHONY: workspace-init workspace-plan workspace-apply platform-init platform-plan platform-apply
+.PHONY: workspace-init workspace-plan workspace-apply workspace-destroy platform-init platform-plan platform-apply platform-destroy
 
 workspace-init:
 	cd workspace && terraform init -backend-config=../environments/$(ENV)/workspace-backend.hcl -reconfigure
@@ -14,6 +14,9 @@ workspace-plan:
 workspace-apply:
 	cd workspace && terraform apply -var-file=../environments/$(ENV)/workspace.tfvars
 
+workspace-destroy:
+	cd workspace && terraform destroy -var-file=../environments/$(ENV)/workspace.tfvars
+
 platform-init:
 	cd platform && terraform init -backend-config=../environments/$(ENV)/platform-backend.hcl -reconfigure
 
@@ -22,3 +25,6 @@ platform-plan:
 
 platform-apply:
 	cd platform && terraform apply -var-file=../environments/$(ENV)/platform.tfvars
+
+platform-destroy:
+	cd platform && terraform destroy -var-file=../environments/$(ENV)/platform.tfvars

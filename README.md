@@ -167,6 +167,40 @@ aws/
 
    **Note:** Use `-reconfigure` when switching backends or on first init. Use `-migrate-state` only when you need to copy state from an old backend to the new one.
 
+## Make Commands
+
+Run all commands from the `aws/` directory. Use `ENV=dev` or `ENV=prod` to target an environment (default is `dev`).
+
+### Deploy
+
+1. Initialize and deploy the platform layer first:
+   ```bash
+   make platform-init ENV=dev
+   make platform-plan ENV=dev
+   make platform-apply ENV=dev
+   ```
+
+2. Initialize and deploy the workspace layer (after platform succeeds):
+   ```bash
+   make workspace-init ENV=dev
+   make workspace-plan ENV=dev
+   make workspace-apply ENV=dev
+   ```
+
+### Destroy
+
+Destroy in reverse order: workspace first, then platform (workspace depends on platform).
+
+1. Destroy the workspace layer:
+   ```bash
+   make workspace-destroy ENV=dev
+   ```
+
+2. Destroy the platform layer:
+   ```bash
+   make platform-destroy ENV=dev
+   ```
+
 ---
 
 ## Network Diagram
