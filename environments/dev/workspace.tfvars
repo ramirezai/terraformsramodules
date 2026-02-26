@@ -31,3 +31,21 @@ compliance_standards = ["Standard_A", "Standard_B"]
 # -----------------------------------------------------------------------------
 databricks_gov_shard = null
 cmk_admin_arn       = null
+
+# -----------------------------------------------------------------------------
+# External Locations (optional)
+# -----------------------------------------------------------------------------
+external_locations = {
+  "existing_data" = {
+    create_bucket  = false
+    bucket_name    = "joelstsdemobucketingestion"
+    read_only      = true
+    create_catalog = false
+  }
+  "new_catalog" = {
+    create_bucket  = true
+    bucket_name    = "joelsts-catalog-12345"
+    create_catalog = true
+    catalog_name   = "ext_catalog"
+  }
+}

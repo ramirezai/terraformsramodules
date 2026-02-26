@@ -21,3 +21,4 @@ resource "databricks_cluster" "example" {
     "SRA" = var.resource_prefix
   }
 }
+

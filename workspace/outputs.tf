@@ -7,3 +7,8 @@ output "catalog_name" {
   description = "Name of the catalog created for the workspace"
   value       = module.unity_catalog_catalog_creation.catalog_name
 }
+
+output "external_location_names" {
+  description = "Names of created external locations"
+  value       = [for k, v in module.external_locations : k]
+}

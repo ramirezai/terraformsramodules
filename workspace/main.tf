@@ -67,6 +67,33 @@ module "cluster_configuration" {
   region                             = var.region
 }
 
+# Dynamic External Locations
+module "external_locations" {
+  for_each = var.external_locations
+  source   = "../modules/databricks_workspace/external_location"
+  providers = {
+    databricks = databricks.created_workspace
+  }
+
+  create_bucket               = each.value.create_bucket
+  bucket_name                 = each.value.bucket_name
+  storage_path                = each.value.storage_path
+  read_only                   = each.value.read_only
+  existing_bucket_kms_key_arn = each.value.existing_bucket_kms_key_arn
+  external_location_name      = each.key
+  create_catalog              = each.value.create_catalog
+  catalog_name                = each.value.catalog_name
+  catalog_admin               = each.value.create_catalog ? var.admin_user : ""
+
+  aws_account_id        = var.aws_account_id
+  aws_iam_partition     = local.computed_aws_partition
+  aws_assume_partition  = local.assume_role_partition
+  resource_prefix       = local.resource_prefix
+  workspace_id          = local.workspace_id
+  cmk_admin_arn         = each.value.create_bucket ? coalesce(var.cmk_admin_arn, "arn:${local.computed_aws_partition}:iam::${var.aws_account_id}:root") : null
+  unity_catalog_iam_arn = local.unity_catalog_iam_arn
+}
+
 # =============================================================================
 # Security Analysis Tool - PyPI must be enabled in network policy resource to function.
 # =============================================================================

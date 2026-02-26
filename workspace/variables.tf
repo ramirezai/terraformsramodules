@@ -76,12 +76,26 @@ variable "region" {
   }
 }
 
+variable "external_locations" {
+  description = "Map of external locations to create. Key = external location name (use underscores)."
+  type = map(object({
+    create_bucket               = bool
+    bucket_name                 = string
+    storage_path                = optional(string, "")
+    read_only                   = optional(bool, true)
+    existing_bucket_kms_key_arn = optional(string, "")
+    create_catalog              = optional(bool, false)
+    catalog_name                = optional(string, "")
+  }))
+  default = {}
+}
+
 # Locals from platform state
 locals {
   resource_prefix       = data.terraform_remote_state.platform.outputs.resource_prefix
-  workspace_id         = data.terraform_remote_state.platform.outputs.workspace_id
-  region_name          = data.terraform_remote_state.platform.outputs.region_name
-  root_bucket_name     = data.terraform_remote_state.platform.outputs.root_bucket_name
+  workspace_id          = data.terraform_remote_state.platform.outputs.workspace_id
+  region_name           = data.terraform_remote_state.platform.outputs.region_name
+  root_bucket_name      = data.terraform_remote_state.platform.outputs.root_bucket_name
   databricks_account_id = data.terraform_remote_state.platform.outputs.databricks_account_id
 
   computed_aws_partition = var.aws_partition != null ? var.aws_partition : (

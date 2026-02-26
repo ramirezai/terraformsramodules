@@ -1,4 +1,6 @@
-# Local .terraform directories
+# Local .terraform directories (any depth)
+.terraform/
+**/.terraform/
 */.terraform/*
 */.terraform
 .terraform.lock.hcl
